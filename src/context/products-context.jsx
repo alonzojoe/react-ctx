@@ -28,14 +28,27 @@ const INITIAL_PRODUCTS = [
 ];
 
 export const ProductsContext = React.createContext({
-  products: INITIAL_PRODUCTS,
+  products: [],
+  toggleItem: (id) => {},
 });
 
 const ProductsContextProvider = ({ children }) => {
   const [productsList, setProductsList] = useState(INITIAL_PRODUCTS);
 
+  const toggleItem = (id) => {
+    setProductsList((prevProducts) => {
+      return prevProducts.map((product) => {
+        if (product.id === id) {
+          return { ...product, isFavorite: !product.isFavorite };
+        }
+        return product;
+      });
+    });
+  };
+
   const productsValue = {
     products: productsList,
+    toggleItem: toggleItem,
   };
 
   return (
