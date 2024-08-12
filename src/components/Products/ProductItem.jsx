@@ -3,11 +3,13 @@ import { useStore } from "../../hook-store/store";
 import Card from "../UI/Card";
 import "./ProductItem.css";
 
-const ProductItem = (props) => {
-  const dispatch = useStore()[1];
+const ProductItem = React.memo((props) => {
+  const dispatch = useStore(false)[1];
   const toggleFavHandler = () => {
     dispatch("TOGGLE_FAVORITE", props.id);
   };
+
+  console.log("ProductItem toggle action and component Re-Render");
 
   return (
     <Card style={{ marginBottom: "1rem" }}>
@@ -23,6 +25,6 @@ const ProductItem = (props) => {
       </div>
     </Card>
   );
-};
+});
 
 export default ProductItem;
